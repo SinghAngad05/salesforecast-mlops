@@ -29,6 +29,7 @@ try:
     dataset = load_dataset("AngadSi/sales-forecast-dataset")
     df = dataset["train"].to_pandas()
     print(f"✓ Dataset loaded successfully! Shape: {df.shape}")
+    print(f"  Columns: {df.columns.tolist()}")
 except Exception as e:
     print(f"✗ Error loading dataset: {e}")
     exit(1)
@@ -42,10 +43,14 @@ try:
         errors="ignore"  # ← Prevents crash if columns missing
     )
     
-    # Feature engineering: Calculate Store Age
+    # Feature engineering: Calculate Store Age (if column exists)
     current_year = datetime.datetime.now().year
-    df_cleaned["Store_Age"] = current_year - df_cleaned["Store_Establishment_Year"]
-    df_cleaned.drop("Store_Establishment_Year", axis=1, inplace=True)
+    if "Store_Establishment_Year" in df_cleaned.columns:
+        df_cleaned["Store_Age"] = current_year - df_cleaned["Store_Establishment_Year"]
+        df_cleaned.drop("Store_Establishment_Year", axis=1, inplace=True)
+        print("  ✓ Store_Age feature engineered")
+    else:
+        print("  ⚠ Store_Establishment_Year not found (skipping Store_Age feature)")
     
     # Split features and target
     X = df_cleaned.drop("Product_Store_Sales_Total", axis=1)
