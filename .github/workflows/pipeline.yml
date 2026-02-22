@@ -1,0 +1,84 @@
+name: 🤖 Sales Forecast ML Pipeline
+
+# Trigger on push to main branch and manual dispatch
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  train-and-upload:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout Repository
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v3
+      
+      # Step 2: Setup Python
+      - name: 🐍 Setup Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      # Step 3: Install Dependencies
+      - name: 📦 Install Dependencies
+        run: |
+          echo "Installing required packages..."
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          echo "✓ Dependencies installed successfully"
+      
+      # Step 4: Train Model
+      - name: 🎯 Train Model
+        env:
+          N_JOBS: 1
+        run: |
+          echo "Starting model training..."
+          python train.py
+          echo "✓ Model training completed"
+      
+      # Step 5: Verify Model Output
+      - name: ✅ Verify Model File
+        run: |
+          if [ -f "sales_forecast_model.pkl" ]; then
+            echo "✓ Model file created successfully"
+            ls -lh sales_forecast_model.pkl
+          else
+            echo "✗ Model file not found!"
+            exit 1
+          fi
+      
+      # Step 6: Upload Model to Hugging Face Hub
+      - name: 🚀 Upload Model to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "Uploading model to Hugging Face Hub..."
+          if [ -z "$HF_TOKEN" ]; then
+            echo "✗ HF_TOKEN secret not set!"
+            echo "Please add HF_TOKEN to GitHub Secrets"
+            exit 1
+          fi
+          python upload_model.py
+          echo "✓ Model uploaded successfully"
+      
+      # Step 7: Pipeline Summary
+      - name: 🎉 Pipeline Summary
+        if: success()
+        run: |
+          echo "=========================================="
+          echo "✅ PIPELINE EXECUTED SUCCESSFULLY!"
+          echo "=========================================="
+          echo ""
+          echo "📌 Steps Completed:"
+          echo "  ✓ Model trained"
+          echo "  ✓ Model uploaded to HF Hub"
+          echo "  ✓ Streamlit Space will auto-deploy"
+          echo ""
+          echo "🔗 Model Repository:"
+          echo "  https://huggingface.co/AngadSi/sales-forecast-model"
+          echo "=========================================="
+
