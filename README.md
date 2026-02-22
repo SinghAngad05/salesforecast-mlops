@@ -1,8 +1,8 @@
-# 📊 Sales Forecast ML Ops Pipeline
+# Sales Forecast ML Ops Pipeline
 
 A production-ready Machine Learning Operations (MLOps) project that automatically trains and deploys a sales forecasting model using GitHub Actions, Hugging Face Model Hub, and Streamlit.
 
-## 🎯 Overview
+## Overview
 
 This project demonstrates an end-to-end automated ML pipeline:
 
@@ -11,13 +11,13 @@ GitHub Push → GitHub Actions → Train Model → Upload to HF Hub → Update S
 ```
 
 ### Key Features
-- ✅ **Automated Training**: GitHub Actions triggers model training on every push
-- ✅ **Model Registry**: Models stored in Hugging Face Model Hub
-- ✅ **Continuous Deployment**: Streamlit app automatically uses the latest model
-- ✅ **MLOps Best Practices**: Modular code, version control, and CI/CD integration
-- ✅ **Data Pipeline**: Automated data processing and feature engineering
+- Automated Training: GitHub Actions triggers model training on every push
+- Model Registry: Models stored in Hugging Face Model Hub
+- Continuous Deployment: Streamlit app automatically uses the latest model
+- MLOps Best Practices: Modular code, version control, and CI/CD integration
+- Data Pipeline: Automated data processing and feature engineering
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 SALESFORECAST-MLOPS/
@@ -41,7 +41,7 @@ SALESFORECAST-MLOPS/
 └── upload_model.py                   # Model upload script
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone the Repository
 ```bash
@@ -78,7 +78,7 @@ export HF_TOKEN="your_hf_token_here"
 python upload_model.py
 ```
 
-## 🔄 GitHub Actions Workflow
+## GitHub Actions Workflow
 
 The pipeline (`pipeline.yml`) automates the entire ML lifecycle:
 
@@ -91,16 +91,16 @@ The pipeline (`pipeline.yml`) automates the entire ML lifecycle:
 
 | Step | Action | Purpose |
 |------|--------|---------|
-| 1️⃣ | Checkout Code | Pull latest repository code |
-| 2️⃣ | Setup Python | Configure Python 3.11 environment |
-| 3️⃣ | Install Dependencies | Install required packages |
-| 4️⃣ | Train Model | Execute `train.py` |
-| 5️⃣ | Verify Model | Check if model file exists |
-| 6️⃣ | Upload to HF | Execute `upload_model.py` |
-| 7️⃣ | Commit Data | Push processed data to repository |
+| 1 | Checkout Code | Pull latest repository code |
+| 2 | Setup Python | Configure Python 3.11 environment |
+| 3 | Install Dependencies | Install required packages |
+| 4 | Train Model | Execute train.py |
+| 5 | Verify Model | Check if model file exists |
+| 6 | Upload to HF | Execute upload_model.py |
+| 7 | Commit Data | Push processed data to repository |
 | 8️⃣ | Summary | Display pipeline results |
 
-## 📝 Configuration
+## Configuration
 
 ### GitHub Secrets Setup
 
@@ -177,7 +177,7 @@ python upload_model.py
 
 **Requirements**: HF_TOKEN environment variable must be set
 
-## 🌐 Streamlit Integration
+## Streamlit Integration
 
 The Streamlit app bundles the model locally for fast, reliable startup:
 
@@ -237,7 +237,7 @@ Check pipeline status:
 2. Click on the workflow run
 3. View detailed logs for each step
 
-## 🔧 Customization
+## Customization
 
 ### Change Trigger Conditions
 Edit `.github/workflows/pipeline.yml` trigger section:
@@ -308,6 +308,6 @@ For issues or questions:
 
 ---
 
-**Happy MLOps! 🚀**
+Your repository is now secure. No more exposed secrets.
 
 *Last Updated: February 2026*
