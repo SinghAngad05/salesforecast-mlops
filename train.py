@@ -37,7 +37,10 @@ except Exception as e:
 print("\n[2/5] Preprocessing data...")
 try:
     # Remove unnecessary columns
-    df_cleaned = df.drop(columns=["Product_Id", "Store_Id"])
+    df_cleaned = df.drop(
+        columns=["Product_Id", "Store_Id"],
+        errors="ignore"  # ← Prevents crash if columns missing
+    )
     
     # Feature engineering: Calculate Store Age
     current_year = datetime.datetime.now().year
