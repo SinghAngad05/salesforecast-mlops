@@ -181,7 +181,7 @@ python upload_model.py
 
 The Streamlit app bundles the model locally for fast, reliable startup:
 
-**Streamlit Repository**: `SALESFORECAST-PROJECT-FORECAST-APP`
+**Streamli Repository**: `SALESFORECAST-PROJECT-FORECAST-APP`
 
 ```python
 # Streamlit loads model from local bundled file
